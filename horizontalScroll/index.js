@@ -58,7 +58,7 @@ export default {
 
 // selector 只支持标签、ID、类
 // 按照深度优先原则，寻找到匹配的元素，找到第一个标签便会返回
-function getElementFromChildren(children, selector) {
+export function getElementFromChildren(children, selector) {
     let el = null;
     [...children].some(child => {
         // ID 选择器
@@ -91,3 +91,51 @@ function getElementFromChildren(children, selector) {
 
     return el;
 }
+
+// selectorList的数据项 只支持标签、ID、类
+// 按照深度优先原则，寻找到匹配的元素，找到第一个标签便会返回
+export function getElementFromChildrenBySelectorList(children, selectorList) {
+    let el = null;
+    selectorList = Array.isArray(selectorList) ? selectorList : [selectorList];
+
+    [...children].some(child => {
+        let isExit = selectorList.some(selector => {
+            // ID 选择器
+            if (selector.startsWith('#')) {
+                if (child.id === selector.split('#')[1]) {
+                    el = child;
+                    return true;
+                }
+            }
+
+            // 类选择器
+            if (selector.startsWith('.')) {
+                let classList = [...child.classList];
+                if (classList.includes(selector.split('.')[1])) {
+                    el = child;
+                    return true;
+                }
+            }
+
+            // 标签选择器
+            if (selector.toLowerCase() === child.tagName.toLowerCase()) {
+                el = child;
+                return true;
+            }
+        });
+
+        // 已经找到
+        if (isExit) {
+            return true;
+        }
+
+        // 递归
+        if (child.children.length) {
+            el = getElementFromChildren(child.children, selectorList);
+            return el;
+        }
+    });
+
+    return el;
+}
+
