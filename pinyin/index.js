@@ -1,14 +1,14 @@
 import PYMaps from './map';
 
 /**
-* @description 获取汉字拼音或首字母
-* @param {String} str 待获取拼音的字符串,除汉字外其余字符会直接返回
-* @param {Boolean} extractFirst 只获取汉字拼音首字母
-* @returns {String} 目标的拼音字符串
-**/
+ * @description 获取汉字拼音或首字母
+ * @param {String} str 待获取拼音的字符串,除汉字外其余字符会直接返回
+ * @param {Boolean} extractFirst 只获取汉字拼音首字母
+ * @returns {String} 目标的拼音字符串
+ **/
 export default (str, extractFirst = false) => {
 
-    let result = '';    
+    let result = '';
     let isCh;           // 单个字符是否是中文
 
     str.split('').forEach(char => {

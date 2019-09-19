@@ -2,47 +2,47 @@
  * 基本数据类型检测
  * */
 export const isNull = function (variable) {
-  return variable === null;
+    return variable === null;
 };
 
 
 export const isUndefined = function (variable) {
-  return typeof variable === 'undefined';
+    return typeof variable === 'undefined';
 };
 
 
 export const isNaN = function (variable) {
-  return Number.isNaN(variable);
+    return Number.isNaN(variable);
 };
 
 
 export const isNumber = function (variable) {
-  return Number.isFinite(variable);
+    return Number.isFinite(variable);
 };
 
 
 export const isString = function (variable) {
-  return typeof variable === 'string';
+    return typeof variable === 'string';
 };
 
 
 export const isBoolean = function (variable) {
-  return typeof variable === 'boolean';
+    return typeof variable === 'boolean';
 };
 
 
 export const isFunction = function (variable) {
-  return typeof variable === 'function';
+    return typeof variable === 'function';
 };
 
 
 export const isArray = function (variable) {
-  return Array.isArray(variable);
+    return Array.isArray(variable);
 };
 
 
 export const isObject = function (variable) {
-  return typeof variable === 'object' && !isArray(variable) && !isNull(variable);
+    return typeof variable === 'object' && !isArray(variable) && !isNull(variable);
 };
 
 
@@ -50,17 +50,17 @@ export const isObject = function (variable) {
  * 应用数据类型检测
  * */
 export const isChinese = function (variable) {
-  return /^[\u4e00-\u9FA5]+$/.test(variable);
+    return /^[\u4e00-\u9FA5]+$/.test(variable);
 };
 
 
 export const isPhone = function (variable) {
-  return /^\d{11}$/.test(variable);
+    return /^\d{11}$/.test(variable);
 };
 
 
 export const isEmail = function (variable) {
-  return /^\w+([-_.]\w+)*@(\w+([-]\w+)*)(\.\w+([-]\w+)*)+$/.test(variable);
+    return /^\w+([-_.]\w+)*@(\w+([-]\w+)*)(\.\w+([-]\w+)*)+$/.test(variable);
 };
 
 
@@ -93,62 +93,62 @@ export const isEmail = function (variable) {
  *
  * */
 export const isIDCard = function (variable) {
-  let flag = /^\d{6}(18|19|2\d)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)?$/.test(variable);
-  if (flag) {
-    let code = variable.split('');
-    let factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
-    var parity = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
-    if (code.length === 18) {
-      let sum = 0;
-      for (let i = 0; i < 17; i++) {
-        sum += code[i] * factor[i];
-      }
-      flag = parity[sum % 11] === code[17];
+    let flag = /^\d{6}(18|19|2\d)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)?$/.test(variable);
+    if (flag) {
+        let code = variable.split('');
+        let factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+        var parity = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+        if (code.length === 18) {
+            let sum = 0;
+            for (let i = 0; i < 17; i++) {
+                sum += code[i] * factor[i];
+            }
+            flag = parity[sum % 11] === code[17];
+        }
     }
-  }
-  return flag;
+    return flag;
 };
 
 
 export const isEquals = function (x, y) {
 
-  let in1 = x instanceof Object;
-  let in2 = y instanceof Object;
-  if (!in1 || !in2) {
-    return x === y;
-  }
-  if (Object.keys(x).length !== Object.keys(y).length) {
-    return false;
-  }
-  for (let p in x) {
-    let a = x[p] instanceof Object;
-    let b = y[p] instanceof Object;
-    if (a && b) {
-      if (!isEquals(x[p], y[p])) {
+    let in1 = x instanceof Object;
+    let in2 = y instanceof Object;
+    if (!in1 || !in2) {
+        return x === y;
+    }
+    if (Object.keys(x).length !== Object.keys(y).length) {
         return false;
-      }
     }
-    else if (x[p] !== y[p]) {
-      return false;
+    for (let p in x) {
+        let a = x[p] instanceof Object;
+        let b = y[p] instanceof Object;
+        if (a && b) {
+            if (!isEquals(x[p], y[p])) {
+                return false;
+            }
+        }
+        else if (x[p] !== y[p]) {
+            return false;
+        }
     }
-  }
-  return true;
+    return true;
 };
 
 
 export default {
-  isNull,
-  isUndefined,
-  isNaN,
-  isNumber,
-  isString,
-  isBoolean,
-  isFunction,
-  isArray,
-  isObject,
-  isChinese,
-  isPhone,
-  isEmail,
-  isIDCard,
-  isEquals,
+    isNull,
+    isUndefined,
+    isNaN,
+    isNumber,
+    isString,
+    isBoolean,
+    isFunction,
+    isArray,
+    isObject,
+    isChinese,
+    isPhone,
+    isEmail,
+    isIDCard,
+    isEquals,
 }

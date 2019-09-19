@@ -5,17 +5,17 @@
  * @param {number} delay 时间间隔
  * */
 export const debounce = function (callback, delay) {
-  let timer = null;
-  return function () {
-    let context = this;
-    let args = arguments;
+    let timer = null;
+    return function () {
+        let context = this;
+        let args = arguments;
 
-    clearTimeout(timer);
+        clearTimeout(timer);
 
-    timer = setTimeout(function () {
-      callback.apply(context, args);
-    }, delay);
-  }
+        timer = setTimeout(function () {
+            callback.apply(context, args);
+        }, delay);
+    }
 };
 
 
@@ -26,20 +26,20 @@ export const debounce = function (callback, delay) {
  * @param {number} delay 时间间隔
  * */
 export const throttle = function (callback, delay) {
-  let prev = Date.now();
-  return function () {
-    let context = this;
-    let args = arguments;
-    let now = Date.now();
-    if (now - prev >= delay) {
-      callback.apply(context, args);
-      prev = Date.now();
+    let prev = Date.now();
+    return function () {
+        let context = this;
+        let args = arguments;
+        let now = Date.now();
+        if (now - prev >= delay) {
+            callback.apply(context, args);
+            prev = Date.now();
+        }
     }
-  }
 };
 
 
 export default {
-  debounce,
-  throttle,
+    debounce,
+    throttle,
 }
