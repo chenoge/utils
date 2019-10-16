@@ -7,13 +7,13 @@ import dataFont from './font/font'
 import proxyLoad from './proxy/proxyLoad.js'
 
 export default {
-  ...time,
-  ...url,
-  ...valid,
-  ...ajax,
-  ...timeout,
-  ...dataFont,
-  ...proxyLoad
+    ...time,
+    ...url,
+    ...valid,
+    ...ajax,
+    ...timeout,
+    ...dataFont,
+    ...proxyLoad
 }
 
 
@@ -54,16 +54,16 @@ export default {
  *　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　丶
  */
 
- /**
-就不卖关子了，图片转字符可以上这个传送门，白底的话会按空格补全，否则都为字符。
+/**
+ 就不卖关子了，图片转字符可以上这个传送门，白底的话会按空格补全，否则都为字符。
 
-前面的传送门貌似出了点问题，下面再补上个新的传送门，也是很好用的，可以选择质量。
+ 前面的传送门貌似出了点问题，下面再补上个新的传送门，也是很好用的，可以选择质量。
 
-这不，下面的两只doge和一头滑稽就是产自于它，have
-fun，快去制作专属的字符注释吧。
+ 这不，下面的两只doge和一头滑稽就是产自于它，have
+ fun，快去制作专属的字符注释吧。
 
-再补上一个好玩的网站Ascii
-World，由于这网站的图形太多了，我就不贴上来了。
+ 再补上一个好玩的网站Ascii
+ World，由于这网站的图形太多了，我就不贴上来了。
  */
 
 /**
@@ -866,5 +866,5 @@ World，由于这网站的图形太多了，我就不贴上来了。
  */
 
 /**
-http://life.chacuo.net/convertphoto2char
-*/
+ http://life.chacuo.net/convertphoto2char
+ */
