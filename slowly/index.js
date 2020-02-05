@@ -1,5 +1,67 @@
 /**
  *
+ * @param begin 开始值
+ * @param change 变化范围
+ * @param callback 回调函数
+ * @param duration 从 begin 到 begin + change 执行时间
+ */
+function slowly(begin, change, callback, duration = 500) {
+    let fps = 16.7;
+    let i = 0;
+    let interval = setInterval(() => {
+        const next = Math.floor(easeInOutQuad(fps * i, begin, change, duration));
+        if (fps * i >= duration) {
+            callback(begin + change);
+            clearInterval(interval);
+            return true;
+        }
+        callback(next);
+        i++;
+    }, fps);
+}
+
+/**
+ * 防抖动
+ * @method debounce
+ * @param {function} callback 回调函数
+ * @param {number} delay 时间间隔
+ * */
+export const debounce = function (callback, delay) {
+    let timer = null;
+    return function () {
+        let context = this;
+        let args = arguments;
+
+        clearTimeout(timer);
+
+        timer = setTimeout(function () {
+            callback.apply(context, args);
+        }, delay);
+    }
+};
+
+
+/**
+ * 节流
+ * @method throttle
+ * @param {function} callback 回调函数
+ * @param {number} delay 时间间隔
+ * */
+export const throttle = function (callback, delay) {
+    let prev = Date.now();
+    return function () {
+        let context = this;
+        let args = arguments;
+        let now = Date.now();
+        if (now - prev >= delay) {
+            callback.apply(context, args);
+            prev = Date.now();
+        }
+    }
+};
+
+/**
+ * 缓动
  * @param t 当前执行时间
  * @param b 开始值
  * @param c 变化量
@@ -39,26 +101,8 @@ function easeInQuad(t, b, c, d) {
     return b + c * y;
 }
 
-/**
- *
- * @param begin 开始值
- * @param change 变化范围
- * @param callback 回调函数
- * @param duration 从 begin 到 begin + change 执行时间
- */
-function slowly(begin, change, callback, duration = 500) {
-    let fps = 16.7;
-    let i = 0;
-    let interval = setInterval(() => {
-        const next = Math.floor(easeInOutQuad(fps * i, begin, change, duration));
-        if (fps * i >= duration) {
-            callback(begin + change);
-            clearInterval(interval);
-            return true;
-        }
-        callback(next);
-        i++;
-    }, fps);
-}
-
-export default slowly;
+export default {
+    debounce,
+    throttle,
+    slowly
+};

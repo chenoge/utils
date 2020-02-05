@@ -1,25 +1,25 @@
-const todoEvent = (function () {
-    let todo = {};
+const subscribe = (function () {
+    let message = {};
 
     let listen = function (key, callback) {
         if (typeof callback === 'function') {
-            !todo[key] && (todo[key] = new Set());
-            todo[key].add(callback);
+            !message[key] && (message[key] = new Set());
+            message[key].add(callback);
             callback();
         }
     };
 
     let trigger = function () {
         let key = Array.prototype.shift.call(arguments);
-        if (key && todo[key]) {
-            todo[key].forEach(cb => {
+        if (key && message[key]) {
+            message[key].forEach(cb => {
                 cb.apply(this, arguments);
             });
         }
 
         if (!key) {
-            Object.keys(todo).forEach(key => {
-                todo[key].forEach(cb => {
+            Object.keys(message).forEach(key => {
+                message[key].forEach(cb => {
                     cb.apply(this, arguments);
                 });
             });
@@ -28,13 +28,13 @@ const todoEvent = (function () {
 
     let remove = function (key, callback) {
         if (!key) {
-            todo = {};
+            message = {};
         }
 
         if (key) {
-            let cbList = todo[key];
+            let cbList = message[key];
             if (cbList) {
-                !callback && (todo[key] = new Set());
+                !callback && (message[key] = new Set());
                 cbList.forEach((cb, i) => {
                     if (cb === callback) {
                         cbList.splice(i, 1);
@@ -53,5 +53,5 @@ const todoEvent = (function () {
 })();
 
 export default {
-    todoEvent
+    subscribe
 }

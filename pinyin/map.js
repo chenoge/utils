@@ -1,4 +1,4 @@
-const map = {
+export default {
     "a": "啊阿锕",
     "ai": "埃挨哎唉哀皑癌蔼矮艾碍爱隘诶捱嗳嗌嫒瑷暧砹锿霭",
     "an": "鞍氨安俺按暗岸胺案谙埯揞犴庵桉铵鹌顸黯",
@@ -401,5 +401,3 @@ const map = {
     "fou": "缶",
     "bia": "髟"
 };
-
-export default map;

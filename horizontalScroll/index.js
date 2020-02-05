@@ -5,7 +5,7 @@ export default {
     bind(el, binding) {
         el.__step__ = 100; // 滑动一次滚轮，默认移动的距离，单位px
         el.__scrollEl__ = el; // 真正滚动的元素
-        el.__horizontalScroll__ = handle;
+        el.__horizontalScrollFn__ = handle;
 
         // 初始化
         if (binding.value) {
@@ -49,10 +49,10 @@ export default {
 
     // 解除绑定的时候，移除该事件
     unbind(el) {
-        el.__scrollEl__.removeEventListener("wheel", el.__horizontalScroll__);
+        el.__scrollEl__.removeEventListener("wheel", el.__horizontalScrollFn__);
         delete el.__step__;
         delete el.__scrollEl__;
-        delete el.__horizontalScroll__;
+        delete el.__horizontalScrollFn__;
     }
 };
 
@@ -86,56 +86,6 @@ export function getElementFromChildren(children, selector) {
         if (child.children.length) {
             el = getElementFromChildren(child.children, selector);
             return el;
-        }
-    });
-
-    return el;
-}
-
-// selectorList的数据项 只支持标签、ID、类
-// 按照深度优先原则，寻找到匹配的元素，找到第一个标签便会返回
-export function getElementFromChildrenBySelectorList(children, selectorList) {
-    let el = null;
-    selectorList = Array.isArray(selectorList) ? selectorList : [selectorList];
-    [...children].some(child => {
-        let style = window.getComputedStyle(child);
-        // 不遍历display值为none的元素
-        if (!style.display.includes('none')) {
-            let isExit = selectorList.some(selector => {
-                // ID 选择器
-                if (selector.startsWith('#')) {
-                    if (child.id === selector.split('#')[1]) {
-                        el = child;
-                        return true;
-                    }
-                }
-
-                // 类选择器
-                if (selector.startsWith('.')) {
-                    let classList = [...child.classList];
-                    if (classList.includes(selector.split('.')[1])) {
-                        el = child;
-                        return true;
-                    }
-                }
-
-                // 标签选择器
-                if (selector.toLowerCase() === child.tagName.toLowerCase()) {
-                    el = child;
-                    return true;
-                }
-            });
-
-            // 已经找到
-            if (isExit) {
-                return true;
-            }
-
-            // 递归
-            if (child.children.length) {
-                el = getElementFromChildren(child.children, selectorList);
-                return el;
-            }
         }
     });
 
